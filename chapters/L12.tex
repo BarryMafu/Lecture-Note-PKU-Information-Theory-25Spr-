@@ -58,7 +58,7 @@
 
         所以加在一起的错误概率就是趋于零的，因此可以任意小. 
 
-        \item[(2)] 当$R > C$时，往证明存在$\varepsilon_0$使得任意纠错码的错误率都$\ge \varepsilon_0$. 我们需要使用Faro不等式（写在后面）
+        \item[(2)] 当$R > C$时，往证明存在$\varepsilon_0$使得任意纠错码的错误率都$\ge \varepsilon_0$. 我们需要使用Fano不等式（写在后面）
         
         设我们发出的消息是$M$，收到比特流$Y_1,\dots, Y_n$，则 
         \[
@@ -76,7 +76,7 @@
     综合两部分便完成了定理的证明.
 \end{proof}
 
-\begin{theorem}[Faro不等式]
+\begin{theorem}[Fano不等式]
     令$X,Y$是随机变量，$X \in \cal{H}$，其取值范围有限$\abs{\cal{H}} < \infty$。 现在我们使用$Y$来估计$X$，记估计值$\hat{X} = g(Y)$，那么错误概率满足 
     \[
     P_{\text{error}} = \Pr[\hat{X} \neq X] \ge \dfrac{H(X|Y) - 1}{\log \abs{\cal{H}}}
