@@ -3,3 +3,8 @@ main.synctex.gz
 main.out
 main.aux
 main.log
+
+!.gitignore
+!*.tex
+!*.bib
+!*.sty
