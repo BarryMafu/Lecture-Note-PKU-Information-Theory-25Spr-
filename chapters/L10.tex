@@ -63,6 +63,74 @@
 \begin{solution}
     这和上面的情况本质上完全一样，所以容量$C=1 \ \text{bit}$. 
 \end{solution}
+
+\begin{example}
+    $X$取值于$\{A_1, A_2, B_1, B_2\}$，而$Y$取值于$\{A,B\}$. 我们考虑信道合并了同类的信息，即似然如下，求容量.
+    \[
+    \begin{array}{c|c|c|c|c}
+        P(Y|X) & X=A_1 & X=A_2 & X=B_1 & X=B_2\\ \hline 
+        Y=A & 1 & 1 & 0 & 0\\ \hline 
+        Y=B & 0 & 0 & 1 & 1       
+    \end{array}
+    \]
+\end{example}
+\begin{solution}
+    我们知道$I(X;Y) \le H(X), H(Y)$，故 
+    \[
+    C = \max_{P_X} I(X;Y) \le \max_{P_X} H(Y) = 1 \ \text{bit}
+    \]
+
+    取$P_X(A_1) + P_X(A_2) = 1/2$即可.
+\end{solution}
+
+\begin{example}
+    $X,Y$均取值于$\{A,B,C,D,E\}$，似然如下，求容量.
+    \[
+    \begin{array}{c|c|c|c|c|c}
+        P(Y|X) & X=A & X=B & X=C & X=D & X=E\\ \hline 
+        Y=A & 1/2 & 0 & 0 & 0 & 1/2\\ \hline 
+        Y=B & 1/2 & 1/2 & 0 & 0 & 0\\ \hline   
+        Y=C & 0 & 1/2 & 1/2 & 0 & 0\\ \hline 
+        Y=D & 0 & 0 & 1/2 & 1/2 & 0\\ \hline 
+        Y=E & 0 & 0 & 0 & 1/2 & 1/2\\ \hline   
+    \end{array}
+    \]
+\end{example}
+\begin{solution}
+    注意到$H(Y|X)$是固定的
+    \[
+    C = \max_{P_X} I(X;Y) = \max_{P_X} H(Y) - H(Y|X) = \max_{P_X} H(Y) - 1 = \log_2 5 - 1 \ \text{bit}
+    \]
+\end{solution}
+
+\begin{example}
+    $X,Y$均取值于$\{0,1\}$，可虑一个较现实的信道，即似然如下($\varepsilon > 0$)，求容量.
+    \[
+    \begin{array}{c|c|c}
+        P(Y|X) & X=0 & X=1 \\ \hline 
+        Y=0 & 1 - \varepsilon & \varepsilon \\ \hline
+        Y=1 & \varepsilon & 1 - \varepsilon
+    \end{array}
+    \]
+\end{example}
+\begin{solution}
+    和上一个例子很像，注意到$H(Y|X)$是固定的
+    \[
+    C = \max_{P_X} I(X;Y) = \max_{P_X} H(Y) - H(Y|X) = \max_{P_X} H(Y) - H_2(\varepsilon) = 1 - H_2(\varepsilon) \ \text{bit}
+    \]
+
+    其中$H_2(\varepsilon) = \varepsilon\log_2 \varepsilon + (1-\varepsilon) \log_2(1-\varepsilon)$.
+\end{solution} 
+
+\begin{example}
+    试设计一个含噪信道，使得$H(Y)$远大于$I(X;Y)$. 
+\end{example}
+
+我们此前讨论了纠错码的应用，纠错码实际上添加了一部分冗余，但增加了纠错的能力. 冗余越多，纠错能力越强，可恢复概率越大，但相应地传输效率越低.  但我们希望让正确率无限接近1（也就是任给$\varepsilon > 0$，正确率都可以大于$1-\varepsilon$），而此时“效率”时受限的，在下一章我们量化地讨论，这里先不严谨地理解一下.  
+
+用$R$表示每次传输时真正信息的比特数，那么在容量为$C$的信道上传输时. 若$R<C$，存在纠错码可让错误率无限接近0；若$R>C$，没有纠错码可让错误率无限接近0. 
+
+
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=.6\textwidth]{images/c2_1.png}
