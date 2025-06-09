@@ -9,7 +9,7 @@
 
 \bigskip
 
-首先完成了信道编码定理的证明，放在了前一节. 下面介绍Fisher信息和Carmer-Rao不等式. 
+首先完成了信道编码定理的证明，放在了前一节. 下面介绍Fisher信息和Carm​​ér-Rao不等式. 
 
 动机和来源是无偏估计. （若学过统计学可跳过）
 \begin{definition}[无偏估计]
@@ -56,6 +56,46 @@
         \del{^2}{\te^2} \ln f(X;\te)
     \right] = -\displaystyle\int \del{^2}{\te^2} \ln f(x;\te) f(x;\te) \dx$
 \end{proposition}
+\begin{proof}
+    \begin{align*}
+       \E\left[
+        \del{^2}{\te^2} \ln f(X;\te)
+    \right] & =\int \del{^2}{\te^2} \ln f(x;\te) f(x;\te) \dx \\
+    & = \int \del{}{\te} \left(
+        \dfrac{\nabla_\te f(x;\te)}{f(x;\te)}
+    \right) f(x;\te) \dx \\
+    & = \int \dfrac{\nabla^2_\te f(x;\te)\cdot f(x;\te) - (\nabla_\te f(x;\te))^2}{f^2(x;\te)} f(x;\te) \dx \\
+    & = \int \nabla^2_\te f(x;\te) \dx - \int \left(\dfrac{\nabla_\te f(x;\te)}{f(x;\te)}\right)^2 f(x;\te) \dx \\
+    & = \del{^2}{\te^2} \int f(x;\te) \dx -\int \del{^2}{\te^2} \ln f(x;\te) f(x;\te) \dx \\
+    & = -\E\left[
+        \del{^2}{\te^2} \ln f(X;\te)
+    \right]
+    \end{align*}
+\end{proof} 
+
+Fisher信息的意义在衡量无偏估计最好能好到什么程度，这里的好是由方差来度量的. 也就是这里要介绍的不等式：
+\begin{theorem}[Cram​​ér-Rao不等式]
+    对于任意$\te$的无偏估计$\phi: X \ra \R$，我们有 
+    \[
+    \var(\phi(X)) \ge \dfrac{1}{I(\te)}
+    \]
+\end{theorem}
+\begin{proof}
+    证明此略.
+\end{proof}
+
+我们可以将得分函数，Fisher信息，Cramér-Rao不等式拓展到$d$维的情况：
+
+\begin{align*}
+    \del{}{\te} \ln f(X;\te) \quad & \longrightarrow \quad \nabla_\te \ln f(x;\te) \\ 
+    -\E\left[
+        \del{^2}{\te^2} \ln f(X;\te)
+    \right]\quad & \longrightarrow \quad -\E\left[
+        \nabla^2_\te \ln f(X;\te)
+    \right] \\
+    \var(\phi(X)) \ge \dfrac{1}{I(\te)} \quad & \longrightarrow \quad  \cov(\phi(X)) \ge \dfrac{1}{I(\te)}
+\end{align*}
+
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=.6\textwidth]{images/c2_1.png}
