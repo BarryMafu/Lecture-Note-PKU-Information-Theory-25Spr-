@@ -1,13 +1,26 @@
-\chapter{Lecture }
+\chapter{Lecture 13}
 
 %--- 信息 ----
 \begin{center}
     讲师：王立威 \qquad
-    课程时间：25. \qquad 
-    笔记：\today
+    课程时间：25.May.20th \qquad 
+    笔记：25.June.9th
 \end{center}
 
 \bigskip
+
+首先完成了信道编码定理的证明，放在了前一节. 下面介绍Fisher信息和Carmer-Rao不等式. 
+
+动机和来源是无偏估计. （若学过统计学可跳过）
+\begin{definition}[无偏估计]
+    我们（往往独立同分布地）采样了一组样本点$X=(X_1,X_2,\dots, X_n)$，设其密度函数为$f(\cdot;\te)$（其中$\te$是我们要估计的参数），那么有 
+    \[
+    f(x;\te) = \prod_{i=1}^n f(X_i; \te)
+    \]
+    
+    现在使用这些样本点得到$\te$的一个估计$\hat{\te} = \phi(X_1,\dots, X_n)$. 如果满足$\E[\hat{\te}] = \te$则称$\hat{\te}$是$\te$的\textbf{无偏估计}(unbiased estimation).
+\end{definition}
+
 
 % \begin{figure}[H]
 %     \centering
