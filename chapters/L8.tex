@@ -49,7 +49,7 @@ d_H(c_i, c_j) \ge \de n , \quad \forall i \neq j
     如果对于某个常数$c$（$c$依赖于$\de$），$n \ge cm$，那么存在一组编码符合条件.
 \end{theorem}
 \begin{proof}
-    由于$c_i, c_j$是独立且均匀地在$\{0,1\}^n$熵采样得到的，所以事实上$d_H(c_i,c_j) \sim B(n, 1/2)$。 根据Chernoff Bound，可以得到 
+    我们在$\{0,1\}^n$上独立且均匀地采样$c_1, c_2, \dots, c_n$，相当于每个比特都服从均匀两点分布。故$d_H(c_i,c_j) \sim B(n, 1/2)$。 根据Chernoff Bound，可以得到 
 \[
 \Pr \Big[
 d_H(c_i, c_j) < \de n  
@@ -78,16 +78,57 @@ n \ge \Omega(m)
 也就证明了结论。事实上，这个$c$可以取成$\dfrac{2}{D(\de \| \frac 12)}$。
 \end{proof}
 
-总结一下设计一套纠错码的流程 
+总结一下设计一套纠错码的流程：
 \begin{enumerate}
-    \item 首先要设计一组码字$c_1,c_2,\dots, c_N$，使得它们彼此Hamming充分大（达到预期纠错的能力）。
+    \item 首先要设计一组码字$c_1,c_2,\dots, c_N$，使得它们彼此Hamming距离充分大（达到预期纠错的能力）。
     \item 然后给出一个编码算法，将消息映射到码字。
     \item 最后给出解码算法，找到接受消息最近的码字。
 \end{enumerate}
 
 这里的第3步比较特殊，一般$m$可以来到上百的量级，码字计算会来到2的上百次方量级，朴素寻找最近邻码字是不现实的。我们必须要考虑编码和解码的计算复杂度。 这部分也是该领域着重努力的方向。 
 
-一个最早期的做法是Hamming码
+一个最早期的做法是Hamming码，在介绍Hamming码之前，先通过一个例子感受一下。在陈述例子之前，我们先定义零空间。
+\begin{definition}
+    对于域$F$上的线性映射$T: U \ra V$，定义其\textbf{零空间}(null space)为
+    \[
+    \Null (T):= \{x\in U: Tx = 0\}
+    \]
+
+    如果$T$有矩阵表示$A$，那么也称为矩阵的零空间$\Null (A)$. 
+\end{definition}
+\begin{example}
+    考虑$GF(2)$上的矩阵 
+    \[
+    H = \begin{bmatrix}
+        0 & 0 & 0 & 1 & 1 & 1 & 1 \\ 
+        0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 
+        1 & 0 & 1 & 0 & 1 & 0 & 1 \\ 
+    \end{bmatrix}_{3 \times 7}
+    \]
+
+    试计算 $\min\limits_{x,y \in \Null(H): x\neq y} d_H(x,y)$.
+\end{example}
+
+我们用列向量表示矩阵$H = \begin{bmatrix}
+    v_1, & v_2, & \cdots & ,v_7
+\end{bmatrix}$. 可以看出$v_i$事实上就是$i$的二进制表示。可以看出这个7个向量张成的空间是3维的。
+
+不难验证$\Null(H)$事实上是$[2]^7$的一个线性子空间. 而$d_H(x, y)$其实是$x + y$为1的比特数，也就是1-范数。（这里$+$是$GF(2)$中的运算符）这里我们称$\norm{x}_1$为$x$的\textbf{权重}. 而若
+\[
+Hx = \sum_{i=1}^7 v_i x_i = 0
+\]
+
+结合之前关于维度的讨论可知$\norm{x}_1 \ge 3$，所以$d_H(x,y) \ge 3$。另一方面取
+\[
+x = \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}^\top, \quad 
+y = \begin{bmatrix}
+    1 & 1 & 1 & 0 & 0 & 0 & 0
+\end{bmatrix}^\top
+\]
+
+可以达到下界，故答案就是$3$。
 
 % \begin{figure}[H]
 %     \centering

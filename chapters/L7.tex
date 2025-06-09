@@ -47,9 +47,9 @@ K_U(x) := \min_{p, U(p)=x} \abs{p}
         \end{itemize}
     \end{itemize}
 
-    那么可见$\abs{P_0'} = l + c$（$c$常数）. 而$P_0'$可以决定识别字符串$s$，其中$K_U(s) \ge L$。但根据K-复杂度的定义，会有 
+    那么可见$\abs{P_0'} = l + \al \log L + \be$（$\al, \be$常数）. 而$P_0'$可以决定识别字符串$s$，其中$K_U(s) \ge L$。但根据K-复杂度的定义，会有 
     \[
-    L \le K_U(s) \le \abs{P_0'} = l + c
+    L \le K_U(s) \le \abs{P_0'} = l + \al \log L + \be
     \]
 
     所以取$L$充分大便可得到矛盾. 因此$K_U$不可计算.
