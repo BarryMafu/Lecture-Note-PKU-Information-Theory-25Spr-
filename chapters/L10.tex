@@ -9,8 +9,60 @@
 
 \bigskip
 
+关于编码的部分就到此结束，我们转而关注信道传输中的根本问题. 这章的核心是信道容量(channel capacity). 先总结一下信道通信的基本框架，图示如下：
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.95\textwidth]{images/c10_1.png}
+    \caption{信道通信的图示}
+\end{figure}
 
+如何刻画一个含噪的信道呢？我们将信源的消息看作随机变量$X$，通过信道后的信息为$Y$，那么含噪信道在意义上完全可以由似然（条件概率）$\Pr[Y|X]$决定（一下可能使用$P(Y|X)$代替$\Pr[Y|X]$）.
 
+在这个模型的基础上，当给定一个含噪信道$P(Y|X)$后，接收方能够接受到有多少有关$X$的“信息”.  如果我们单纯用信息熵来刻画是不够合理的：
+\begin{proposition}
+    存在含噪信道$P(Y|X)$使得$H(Y) > H(X)$.
+\end{proposition}
+
+这是因为接收方可能收到了很大一部分来自噪声的信息，而非来自$X$的信息，故我们再次强调该信息一定是关于$X$的. 自然我们应该使用互信息而非信息熵来刻画，即使用$I(X;Y) = D(P_{X,Y} \| P_X P_Y)$. 
+
+因此延伸出信道容量的定义：
+\begin{definition}[信道容量]
+    对于一个含噪信道$P(Y|X)$，其\textbf{信道容量}(channel capacity)定义为 
+    \[
+    C:= \max_{P_X} I(X;Y)
+    \]
+\end{definition}
+
+可以看出信道容量的物理意义是有效信息最高传输速率. 为加深理解，来看几则例子. 
+\begin{example}
+    $X,Y$均取值于$\{0,1\}$，若信道是无噪声的，即似然如下，求容量.
+    \[
+    \begin{array}{c|c|c}
+        P(Y|X) & X=0 & X=1 \\ \hline 
+        Y=0 & 1 & 0 \\ \hline 
+        Y=1 & 0 & 1        
+    \end{array}
+    \]
+\end{example}
+\begin{solution}根据定义有
+    \[
+        C = \max_{P_X} I(X;Y) = \max_{P_X} H(X) = 1 \ \text{bit}
+    \]
+\end{solution}
+
+\begin{example}
+    $X,Y$均取值于$\{0,1\}$，若信道是完全翻转的，即似然如下，求容量.
+    \[
+    \begin{array}{c|c|c}
+        P(Y|X) & X=0 & X=1 \\ \hline 
+        Y=0 & 0 & 1 \\ \hline 
+        Y=1 & 1 & 0        
+    \end{array}
+    \]
+\end{example}
+\begin{solution}
+    这和上面的情况本质上完全一样，所以容量$C=1 \ \text{bit}$. 
+\end{solution}
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=.6\textwidth]{images/c2_1.png}
