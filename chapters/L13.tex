@@ -19,9 +19,43 @@
     \]
     
     现在使用这些样本点得到$\te$的一个估计$\hat{\te} = \phi(X_1,\dots, X_n)$. 如果满足$\E[\hat{\te}] = \te$则称$\hat{\te}$是$\te$的\textbf{无偏估计}(unbiased estimation).
+\end{definition} 
+
+在正式定义Fisher信息之前先要引入得分函数的定义. 
+\begin{definition}[得分函数]
+    \textbf{得分函数}(score function)是指 
+    \[
+    S(X;\te) := \del{}{\te} \ln f(X;\te)
+    \]
 \end{definition}
 
+\begin{proposition}
+    得分函数满足$\E[S(X;\te)] = 0$
+\end{proposition}
+\begin{proof}
+    根据定义 
+    \begin{align*}
+        \E[S(X;\te)] & = \int S(x;\te) f(x;\te) \dx \\
+        & = \int \del{}{\te} \ln f(x;\te) f(x;\te) \\
+        & = \int \del{f(x;\te)}{\te} \dfrac{1}{f(x;\te)} f(x;\te) \dx \\ 
+        & = \int \del{f(x;\te)}{\te} \dx \\
+        & = \del{}{\te}\int f(x;\te) \dx = \del{}{\te} \ 1 = 0
+    \end{align*}
+\end{proof} 
 
+现在可以定义Fisher信息了
+\begin{definition}[Fisher信息]
+    对于$X,\te$，定义其Fisher信息(information)为 
+    \[
+    I(\te) := \var(S(X;\te)) = \E[S^2(X;\te)]
+    \]
+\end{definition}
+
+\begin{proposition}
+    $I(\te) = -\E\left[
+        \del{^2}{\te^2} \ln f(X;\te)
+    \right] = -\displaystyle\int \del{^2}{\te^2} \ln f(x;\te) f(x;\te) \dx$
+\end{proposition}
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=.6\textwidth]{images/c2_1.png}
